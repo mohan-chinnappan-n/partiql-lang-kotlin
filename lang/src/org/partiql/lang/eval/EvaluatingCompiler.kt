@@ -1111,7 +1111,7 @@ internal class EvaluatingCompiler(
                         val projectionThunk: ThunkEnvValue<List<ExprValue>> =
                             when {
                                 items.filterIsInstance<SelectListItemStar>().any() -> {
-                                    errNoContext("Encountered a SelectListItemStar--did SelectStarRewriter execute?",
+                                    errNoContext("Encountered a SelectListItemStar--did SelectStarVisitorTransform execute?",
                                         internal = true)
                                 }
                                 else -> {
@@ -1529,7 +1529,7 @@ internal class EvaluatingCompiler(
         selectList.items.mapIndexed { idx, it ->
             when (it) {
                 is SelectListItemStar       -> {
-                    errNoContext("Encountered a SelectListItemStar--did SelectStarRewriter execute?",
+                    errNoContext("Encountered a SelectListItemStar--did SelectStarVisitorTransform execute?",
                         internal = true)
                 }
                 is SelectListItemExpr       -> {

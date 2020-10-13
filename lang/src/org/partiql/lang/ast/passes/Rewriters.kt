@@ -3,6 +3,7 @@ package org.partiql.lang.ast.passes
 import com.amazon.ion.IonSystem
 import org.partiql.lang.ast.*
 import org.partiql.lang.eval.visitors.SelectListItemAliasVisitorTransform
+import org.partiql.lang.eval.visitors.SelectStarVisitorTransform
 
 /**
  * Returns an [AstRewriter] requiring no external state for the basic functionality of compiling
@@ -21,7 +22,7 @@ fun basicRewriters(ion: IonSystem) = PipelinedRewriter(
     //   - the synthetic from source aliases added by [FromSourceAliasRewriter]
     //   - The synthetic group by item aliases added by [GroupByItemAliasRewriter]
     GroupByPathExpressionRewriter(),
-    SelectStarRewriter()
+    RewriterTransformBridge(SelectStarVisitorTransform(), ion)
 )
 
 /** A stateless rewriter that returns the input. */
